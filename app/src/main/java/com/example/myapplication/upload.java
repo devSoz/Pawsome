@@ -4,6 +4,8 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -19,6 +21,8 @@ import android.widget.TextView;
 
 import com.example.myapplication.API.dogeAPI;
 import com.example.myapplication.API.dogeService;
+import com.example.myapplication.Model.AnalysisDoge;
+import com.example.myapplication.Model.Result;
 import com.example.myapplication.Model.uploadDoge;
 
 import org.apache.commons.io.FileUtils;
@@ -29,6 +33,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.List;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -41,6 +46,7 @@ public class upload extends AppCompatActivity {
 
     public Uri uri;
     private final static String apiKey = "0bee7108-b9af-414c-8a97-2f803b14ca45";
+    private String TAG = "Okie", image_id = "Pof0ARXII";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,12 +125,42 @@ public class upload extends AppCompatActivity {
             @Override
             public void onResponse(Call<uploadDoge> call,
                                    Response<uploadDoge> response) {
+                image_id = response.body().getId();
+                analysis();
                 Log.v("dogeUpload", "success");
             }
 
             @Override
             public void onFailure(Call<uploadDoge> call, Throwable t) {
                 Log.e("dogeUpload", t.getMessage());
+            }
+        });
+    }
+
+    public void analysis()
+    {
+        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view_analysis);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        dogeService dogeservice = dogeAPI.getClient().create(dogeService.class);
+        Call<List<AnalysisDoge>> call = dogeservice.getAnalysisDoge(image_id, apiKey);
+
+        call.enqueue(new Callback<List<AnalysisDoge>>() {
+            @Override
+            public void onResponse(Call<List<AnalysisDoge>> call, Response<List<AnalysisDoge>> response) {
+                List<AnalysisDoge> analysis = response.body();
+                recyclerView.setAdapter(new analysis_adapter(analysis, R.layout.analysis_adapter, getApplicationContext()));
+                //Log.d(TAG, String.valueOf(dogeList.size()));
+            }
+
+            @Override
+            public void onFailure(Call<List<AnalysisDoge>> call, Throwable t) {
+                try {
+                    throw t;
+                } catch (Throwable throwable) {
+                    throwable.printStackTrace();
+                }
+                Log.d(TAG, String.valueOf(t));
             }
         });
     }

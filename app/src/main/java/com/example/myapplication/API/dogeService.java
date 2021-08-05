@@ -1,5 +1,6 @@
 package com.example.myapplication.API;
-import com.example.myapplication.AnalysisDoge;
+import com.example.myapplication.Model.AnalysisDoge;
+import com.example.myapplication.Model.AnalysisDoge;
 import com.example.myapplication.Model.Result;
 import com.example.myapplication.Model.uploadDoge;
 
@@ -33,8 +34,8 @@ public interface dogeService {
         );
 
         @GET("images/{image_id}/analysis")
-        Call<AnalysisDoge> getAnalysisDoge(
-                @Query("api_key") String apiKey,
-                @Path("image_id") String image_id
+        Call<List<AnalysisDoge>> getAnalysisDoge(
+                @Path("image_id") String image_id,
+                @Query("api_key") String apiKey
         );
 }

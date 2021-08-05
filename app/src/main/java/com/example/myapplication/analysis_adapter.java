@@ -19,13 +19,13 @@ import java.util.List;
 
 public class analysis_adapter extends RecyclerView.Adapter<analysis_adapter.DogeViewHolder>
 {
-    private List<AnalysisDoge> dogeList;
+    private List<AnalysisDoge> analysisDoge;
     private Integer rowLayout;
     Context context;
 
-    public analysis_adapter(AnalysisDoge analysisDoge, Integer rowLayout, Context context)
+    public analysis_adapter(List<AnalysisDoge> analysisDoge, Integer rowLayout, Context context)
     {
-        this.dogeList = dogeList;
+        this.analysisDoge = analysisDoge;
         this.rowLayout = rowLayout;
         this.context = context;
     }
@@ -41,36 +41,32 @@ public class analysis_adapter extends RecyclerView.Adapter<analysis_adapter.Doge
         {
             super(view);
             analysisLayout = (LinearLayout) view.findViewById(R.id.layoutDoge);
-            id = (TextView) view.findViewById(R.id.Id);
-            name = (TextView) view.findViewById(R.id.Name);
-            breedGroup = (TextView) view.findViewById(R.id.BreedGroup);
-            origin = (TextView) view.findViewById(R.id.Origin);
+            status = (TextView) view.findViewById(R.id.Status);
+            analysisName = (TextView) view.findViewById(R.id.analysisName);
+            vendor = (TextView) view.findViewById(R.id.Vendor);
+            imageId = (TextView) view.findViewById(R.id.ImageId);
         }
     }
 
     @Override
-    public adapterDoge.DogeViewHolder onCreateViewHolder(ViewGroup parent,
+    public analysis_adapter.DogeViewHolder onCreateViewHolder(ViewGroup parent,
                                                          int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(rowLayout, parent, false);
-        return new adapterDoge.DogeViewHolder(view);
+        return new analysis_adapter.DogeViewHolder(view);
     }
 
-
     @Override
-    public void onBindViewHolder(adapterDoge.DogeViewHolder holder, final int position) {
+    public void onBindViewHolder(analysis_adapter.DogeViewHolder holder, final int position) {
 
-        Picasso.get()
-                .load(dogeList.get(position).getImage().getUrl())
-                .placeholder(R.color.white)
-                .into(holder.imageView);
-        holder.id.setText(String.valueOf(dogeList.get(position).getId()));
-        holder.name.setText(dogeList.get(position).getName());
-        holder.breedGroup.setText(dogeList.get(position).getBreedGroup());
-        holder.origin.setText(dogeList.get(position).getOrigin());
+        holder.status.setText("Hooray, it is a dog xD");
+        //holder.analysisName.setText(String.valueOf(analysisDoge.getLabels()));
+        holder.vendor.setText(analysisDoge.get(position).getVendor());
+        holder.imageId.setText(analysisDoge.get(position).getImageId());
+        //holder.origin.setText(analysisDoge.);
     }
 
     @Override
     public int getItemCount() {
-        return dogeList.size();
+        return analysisDoge.size();
     }
 }

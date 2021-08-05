@@ -24,7 +24,7 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     private final static String apiKey = "0bee7108-b9af-414c-8a97-2f803b14ca45";
-    private final static String TAG = "chtupidh";
+    private final static String TAG = "Ok";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
