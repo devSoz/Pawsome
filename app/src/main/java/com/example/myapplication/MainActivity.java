@@ -62,10 +62,21 @@ public class MainActivity extends AppCompatActivity {
     public void btnClick()
     {
         ImageButton btnUpload = (ImageButton) findViewById(R.id.uploadButton);
+        ImageButton btnFav = (ImageButton) findViewById(R.id.favButton);
+        ImageButton btnSearch = (ImageButton) findViewById(R.id.searchButton);
+
         btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, upload.class);
+                startActivity(intent);
+            }
+        });
+
+        btnFav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, favDogeDisplay.class);
                 startActivity(intent);
             }
         });

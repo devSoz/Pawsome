@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
-        <activity android:name=".analysis_adapter"></activity>
+        <activity android:name=".favDogeDisplay"></activity>
+        <activity android:name=".analysis_adapter" />
         <activity android:name=".upload" />
         <activity android:name=".MainActivity">
             <intent-filter>
