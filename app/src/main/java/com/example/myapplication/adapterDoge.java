@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
 import android.content.Context;
+import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,19 +17,23 @@ import com.example.myapplication.Model.Result;
 import com.example.myapplication.Model.favDoge;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class adapterDoge extends RecyclerView.Adapter<adapterDoge.DogeViewHolder> {
 
-    private List<Result> dogeList;
+    private List<Result> dogeList = new ArrayList<>();
     private Integer rowLayout;
     Context context;
     private createDatabase createDb;
     private databaseInterface dao;
+    private static final int LOADING = 1;
+    private boolean isLoadingAdded = false;
 
-    public adapterDoge(List<Result> dogeList, Integer rowLayout, Context context)
+    public adapterDoge(Integer rowLayout, Context context)
     {
-        this.dogeList = dogeList;
+        Log.d("testinside", String.valueOf(dogeList.size()));
+        //this.dogeList = dogeList;
         this.rowLayout = rowLayout;
         this.context = context;
     }
@@ -64,27 +70,31 @@ public class adapterDoge extends RecyclerView.Adapter<adapterDoge.DogeViewHolder
 
     @Override
     public void onBindViewHolder(DogeViewHolder holder, final int position) {
+        try {
+            Picasso.get()
+                    .load(dogeList.get(position).getImage().getUrl())
+                    .placeholder(R.color.white)
+                    .into(holder.imageView);
 
-        Picasso.get()
-                .load(dogeList.get(position).getImage().getUrl())
-                .placeholder(R.color.white)
-                .into(holder.imageView);
+            holder.id.setText(String.valueOf(dogeList.get(position).getId()));
+            holder.name.setText(dogeList.get(position).getName());
+            holder.breedGroup.setText(dogeList.get(position).getBreedGroup());
+            holder.origin.setText(dogeList.get(position).getOrigin());
 
-        holder.id.setText(String.valueOf(dogeList.get(position).getId()));
-        holder.name.setText(dogeList.get(position).getName());
-        holder.breedGroup.setText(dogeList.get(position).getBreedGroup());
-        holder.origin.setText(dogeList.get(position).getOrigin());
-
-        holder.ibtnFavDoge.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
-                Integer pos = holder.getAdapterPosition();
-                String imageUrl = dogeList.get(pos).getImage().getUrl();
-                String imageId = dogeList.get(pos).getImage().getId();
-                insertData(imageId, imageUrl);
-            }
-        });
+            holder.ibtnFavDoge.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Integer pos = holder.getAdapterPosition();
+                    String imageUrl = dogeList.get(pos).getImage().getUrl();
+                    String imageId = dogeList.get(pos).getImage().getId();
+                    insertData(imageId, imageUrl);
+                }
+            });
+        }
+        catch (Exception e)
+        {
+            Log.d("Aiyoo", e.getMessage());
+        }
     }
 
     public void insertData(String imageId, String imageUrl)
@@ -100,5 +110,34 @@ public class adapterDoge extends RecyclerView.Adapter<adapterDoge.DogeViewHolder
     @Override
     public int getItemCount() {
         return dogeList.size();
+    }
+
+
+    public void add(Result r) {
+        dogeList.add(r);
+        notifyItemInserted(dogeList.size() - 1);
+    }
+
+    public void addAll(List<Result> tempResults) {
+        for (Result result : tempResults) {
+            add(result);
+        }
+    }
+
+
+    public void addLoadingFooter() {
+        isLoadingAdded = true;
+    }
+
+    public void removeLoadingFooter() {
+        isLoadingAdded = false;
+
+        //int position = movieResults.size() - 1;
+        //Result result = getItem(position);
+
+        //if (result != null) {
+          //  movieResults.remove(position);
+            //notifyItemRemoved(position);
+       // }
     }
 }

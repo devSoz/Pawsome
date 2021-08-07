@@ -21,7 +21,9 @@ public interface dogeService {
         @GET("breeds")
         @Headers({"Accept: application/json"})
         Call<List<Result>> getDoge(
-                @Query("api_key") String apiKey
+                @Query("api_key") String apiKey,
+                @Query("page") Integer page,
+                @Query("limit") Integer limit
                 //@Query("language") String language,
                 //@Query("page") int pageIndex
         );
