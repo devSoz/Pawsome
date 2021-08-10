@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -14,10 +15,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myapplication.API.dogeAPI;
 import com.example.myapplication.API.dogeService;
@@ -45,13 +50,16 @@ import retrofit2.Response;
 public class upload extends AppCompatActivity {
 
     public Uri uri;
+    private ProgressBar uploadProgress;
     private final static String apiKey = "0bee7108-b9af-414c-8a97-2f803b14ca45";
     private String TAG = "Okie", image_id = "Pof0ARXII";
-
+    private ViewGroup containerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.upload);
+        uploadProgress=(ProgressBar) findViewById(R.id.UploadProgress) ;
+        uploadProgress.setVisibility(View.GONE);
         imageListener();
     }
 
@@ -74,7 +82,10 @@ public class upload extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 try {
+                    uploadProgress.setProgress(10);
+                    uploadProgress.setVisibility(View.VISIBLE);
                     uploadFile(getBytes(is));
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -125,8 +136,24 @@ public class upload extends AppCompatActivity {
             @Override
             public void onResponse(Call<uploadDoge> call,
                                    Response<uploadDoge> response) {
-                image_id = response.body().getId();
-                analysis();
+                if (response.body() == null)
+                {
+                    Toast toast = new Toast(getApplicationContext());
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.setText("Could not recognize dog, invalid picture, \npl upload dog to analyze.");
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 100, 200);
+                    toast.show();
+
+
+                    uploadProgress.setVisibility(View.GONE);
+                }
+                else {
+                    image_id = response.body().getId();
+                    analysis();
+                }
+
+
+
                 Log.v("dogeUpload", "success");
             }
 
@@ -151,6 +178,7 @@ public class upload extends AppCompatActivity {
                 List<AnalysisDoge> analysis = response.body();
                 recyclerView.setAdapter(new analysis_adapter(analysis, R.layout.analysis_adapter, getApplicationContext()));
                 //Log.d(TAG, String.valueOf(dogeList.size()));
+                uploadProgress.setVisibility(View.GONE);
             }
 
             @Override

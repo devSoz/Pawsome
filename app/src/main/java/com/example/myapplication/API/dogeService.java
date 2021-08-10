@@ -40,4 +40,10 @@ public interface dogeService {
                 @Path("image_id") String image_id,
                 @Query("api_key") String apiKey
         );
+
+        @GET("breeds/search")
+        Call<List<Result>> getSearchDoge(
+                @Query("q") String q,
+                @Query("api_key") String apiKey
+        );
 }

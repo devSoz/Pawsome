@@ -22,6 +22,7 @@ public class analysis_adapter extends RecyclerView.Adapter<analysis_adapter.Doge
     private List<AnalysisDoge> analysisDoge;
     private Integer rowLayout;
     Context context;
+    Boolean isSuccess=false;
     String strLabel=new String("");
 
     public analysis_adapter(List<AnalysisDoge> analysisDoge, Integer rowLayout, Context context)
@@ -60,12 +61,16 @@ public class analysis_adapter extends RecyclerView.Adapter<analysis_adapter.Doge
     public void onBindViewHolder(analysis_adapter.DogeViewHolder holder, final int position) {
 
         holder.status.setText("Hooray, it is a dog xD");
-        strLabel   ="";
-        for(int i=0;i<analysisDoge.get(position).getLabels().size();i++)
-            strLabel += analysisDoge.get(position).getLabels().get(i).getName() + " ";
+        strLabel   ="Labels: ";
+        for(int i=0;i<analysisDoge.get(position).getLabels().size();i++) {
+            if (i!=0)
+                strLabel += ", ";
+            strLabel += analysisDoge.get(position).getLabels().get(i).getName() ;
+
+        }
         holder.analysisName.setText(strLabel);
-        holder.vendor.setText(analysisDoge.get(position).getVendor());
-        holder.imageId.setText(analysisDoge.get(position).getImageId());
+        holder.vendor.setText("Vendor: " + analysisDoge.get(position).getVendor());
+        holder.imageId.setText("Imageid: " + analysisDoge.get(position).getImageId());
         //holder.origin.setText(analysisDoge.);
     }
 

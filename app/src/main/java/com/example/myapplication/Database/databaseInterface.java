@@ -20,8 +20,8 @@ public interface databaseInterface {
     @Delete
     void delete(favDoge model);
 
-    @Query("DELETE FROM FaveDoge")
-    void deleteFavDoge();
+    @Query("DELETE FROM FaveDoge WHERE imageId = :imageId")
+    void deleteByImageId(String imageId);
 
     @Query("select * from FaveDoge ORDER BY id ASC")
     List<favDoge>getFavDoge();
