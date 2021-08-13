@@ -87,7 +87,7 @@ public class favDogeDisplay extends AppCompatActivity {
         createDb = createDatabase.getInstance(context);
         dao = createDb.Dao();
         favDogeList =  dao.getFavDoge();
-        adapterFavDog = new adapterFavDoge(favDogeList, R.layout.fave_doge, context);
+        adapterFavDog = new adapterFavDoge(favDogeList, R.layout.fave_doge, this);
         //recyclerView.setAdapter(new adapterFavDoge(favDogeList, R.layout.fave_doge, this));
         recyclerView.setAdapter(adapterFavDog);
     }

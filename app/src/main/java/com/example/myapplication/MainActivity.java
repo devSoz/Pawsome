@@ -233,10 +233,11 @@ public class MainActivity extends AppCompatActivity
                 TextView tv = custview.findViewById(R.id.tv);
                 tv.setText(Html.fromHtml("<br><br>" +
                         "Click on the top buttons to navigate to upload, favourites and help pages<br><br>" +
-                        "<u><b>Main Screen (All/Male/Female Heroes):</b></u> <br> Click on the pictures to get full details<br>"  +
+                        "<u><b>Main Screen:</b></u> <br> Click on the pictures to get full details<br>"  +
                         "You can search by name<br>" +
                         "Click on the heart symbol to add to favourites.<br><br>" +
-                        "<u><b>Favourites section:</b></u> Click on the send button to send details and images of your favourite dogs to other platforms<br><br>" +
+                        "<u><b>Favourites section:</b></u> Click on the send button to send details and images of your favourite dogs to other platforms<br>" +
+                                "Swipe to remove dogs from favourites<br><br>"+
                                 "<u><b>Upload section:</b></u> Click on 'upload your image here' to upload image and get press upload to get the respective analysis<br><br>"));
 
 

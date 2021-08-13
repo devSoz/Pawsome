@@ -140,7 +140,7 @@ public class upload extends AppCompatActivity {
                 {
                     Toast toast = new Toast(getApplicationContext());
                     toast.setDuration(Toast.LENGTH_SHORT);
-                    toast.setText("Could not recognize dog, invalid picture, \npl upload dog to analyze.");
+                    toast.setText("Could not recognize dog, \npl upload dog to analyze.");
                     toast.setGravity(Gravity.CENTER_VERTICAL, 100, 200);
                     toast.show();
 

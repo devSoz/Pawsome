@@ -101,7 +101,7 @@ public class adapterFavDoge extends RecyclerView.Adapter<adapterFavDoge.favDogeV
         Uri uri = getmageToShare(bitmap);
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.putExtra(Intent.EXTRA_STREAM, uri);
-        intent.putExtra(Intent.EXTRA_TEXT, "Sharing Image from Pawsome");
+        intent.putExtra(Intent.EXTRA_TEXT, "Shared from Pawsome");
         intent.putExtra(Intent.EXTRA_SUBJECT, "Share");
         intent.setType("image/*");
 
