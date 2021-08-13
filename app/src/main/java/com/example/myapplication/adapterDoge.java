@@ -86,8 +86,8 @@ public class adapterDoge extends RecyclerView.Adapter<adapterDoge.DogeViewHolder
             temperament = (TextView) view.findViewById(R.id.Temperament);
             ibtnLikeDoge = (ImageButton) view.findViewById(R.id.btnFavDoge);
         }
-    }
 
+    }
     @Override
     public adapterDoge.DogeViewHolder onCreateViewHolder(ViewGroup parent,
                                                          int viewType) {

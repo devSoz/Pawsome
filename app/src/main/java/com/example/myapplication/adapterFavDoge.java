@@ -84,27 +84,9 @@ public class adapterFavDoge extends RecyclerView.Adapter<adapterFavDoge.favDogeV
         holder.imgBtnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              //  Intent shareIntent = new Intent();
-               // shareIntent.setAction(Intent.ACTION_SEND);
-               // Integer pos = holder.getAdapterPosition();
-               // String urlstr = faveDogeList.get(pos).getUrl();
-
-
-               // View content = holder.imageViewFav;
-
                 BitmapDrawable bitmapDrawable = (BitmapDrawable) holder.imageViewFav.getDrawable();
                 Bitmap bitmap = bitmapDrawable.getBitmap();
                 shareImageandText(bitmap);
-
-                //  shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-               /* shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(url)));
-                Uri photoURI = FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", Uri.fromFile(new File(url)));
-                shareIntent.setType("image/*");
-                Intent shareActivity = new Intent();
-                Intent intent = Intent.createChooser(shareIntent, "Complete With");
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);*/
-               // context.startActivity(Intent.createChooser(shareIntent, "Ok"));
             }
         });
 
@@ -117,24 +99,14 @@ public class adapterFavDoge extends RecyclerView.Adapter<adapterFavDoge.favDogeV
     private void shareImageandText(Bitmap bitmap) {
         Uri uri = getmageToShare(bitmap);
         Intent intent = new Intent(Intent.ACTION_SEND);
-
-        // putting uri of image to be shared
         intent.putExtra(Intent.EXTRA_STREAM, uri);
-
-        // adding text to share
         intent.putExtra(Intent.EXTRA_TEXT, "Sharing Image from Pawsome");
-
-        // Add subject Here
         intent.putExtra(Intent.EXTRA_SUBJECT, "Share");
-
-        // setting type to image
         intent.setType("image/*");
 
-        // calling startactivity() to share
         context.startActivity(Intent.createChooser(intent, "Share Via"));
     }
 
-    // Retrieving the url to share
     private Uri getmageToShare(Bitmap bitmap) {
         File imagefolder = new File(context.getCacheDir(), "images");
         Uri uri = null;

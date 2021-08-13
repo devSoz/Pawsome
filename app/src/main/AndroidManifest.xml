@@ -16,16 +16,22 @@
         android:supportsRtl="true"
 
         android:theme="@style/Theme.MyApplication">
-         <activity android:name=".favDogeDisplay"/>
 
+        <activity android:name=".MainActivity" android:screenOrientation="portrait">
 
-        <activity android:name=".upload" />
-        <activity android:name=".MainActivity">
+        </activity>
+        <activity android:name=".favDogeDisplay"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity android:name=".upload"
+            android:screenOrientation="portrait">
 
         </activity>
         <activity
             android:name=".Splash"
-            android:theme="@style/SplashTheme">
+            android:theme="@style/SplashTheme"
+            android:screenOrientation="portrait">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,5 +48,4 @@
                android:resource="@xml/path"></meta-data>
        </provider>
     </application>
-
 </manifest>
