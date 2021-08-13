@@ -96,6 +96,7 @@ public class adapterFavDoge extends RecyclerView.Adapter<adapterFavDoge.favDogeV
             return faveDogeList.size();
         }
 
+
     private void shareImageandText(Bitmap bitmap) {
         Uri uri = getmageToShare(bitmap);
         Intent intent = new Intent(Intent.ACTION_SEND);
@@ -123,5 +124,13 @@ public class adapterFavDoge extends RecyclerView.Adapter<adapterFavDoge.favDogeV
             Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_LONG).show();
         }
         return uri;
+    }
+
+    public void notifyDel(int position, String url)
+    {
+
+        faveDogeList.remove(position);
+
+        notifyItemRemoved(position);
     }
 }

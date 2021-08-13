@@ -115,9 +115,6 @@ public class adapterDoge extends RecyclerView.Adapter<adapterDoge.DogeViewHolder
             holder.linearLayoutBack.setVisibility(View.GONE);
             holder.linearLayoutFront.setVisibility(View.VISIBLE);
 
-
-
-
             if(imageIdList.contains(dogeList.get(position).getImage().getId()))
             {
                 holder.ibtnLikeDoge.setImageResource(R.drawable.like);

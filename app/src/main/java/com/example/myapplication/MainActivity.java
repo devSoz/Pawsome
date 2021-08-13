@@ -97,6 +97,12 @@ public class MainActivity extends AppCompatActivity
         loadFirstPage();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //adapterDoge.notifyDataSetChanged();
+    }
+
     public void btnClick()
     {
         popup();
@@ -110,7 +116,6 @@ public class MainActivity extends AppCompatActivity
                 Intent intent = new Intent(MainActivity.this, upload.class);
                 startActivity(intent);
 
-
             }
         });
 
@@ -119,6 +124,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, favDogeDisplay.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -225,15 +231,13 @@ public class MainActivity extends AppCompatActivity
                 View custview = inflater.inflate(R.layout.popup, null);
                 popUp = new PopupWindow(custview, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 TextView tv = custview.findViewById(R.id.tv);
-                tv.setText(Html.fromHtml("<br><br><br><br><u><b>Rules:</b></u><br><br>" +
-                        "You will get one point for stepping into every non-mine tile.<br><br>" +
-                        "And will be losing the game when stepped into the mine.<br><br>"  +
-                        "In level 3, the number of mines in the neighbouring tiles are revealed on the tile you choose, which can be used to track the mines and play the game.<br><br>" +
-                        "<u><b>Number of Mines:</b></u><br>" +
-                        "<ol>" +
-                        "<li>&nbsp;Level 1: 10 mines</li>" +
-                        "<li>&nbsp;Level 2: 13 mines</li>" +
-                        "<li>&nbsp;Level 3: 3, 6, 9, 12, 15 mines as per difficulty.</li><br>" ));
+                tv.setText(Html.fromHtml("<br><br>" +
+                        "Click on the top buttons to navigate to upload, favourites and help pages<br><br>" +
+                        "<u><b>Main Screen (All/Male/Female Heroes):</b></u> <br> Click on the pictures to get full details<br>"  +
+                        "You can search by name<br>" +
+                        "Click on the heart symbol to add to favourites.<br><br>" +
+                        "<u><b>Favourites section:</b></u> Click on the send button to send details and images of your favourite dogs to other platforms<br><br>" +
+                                "<u><b>Upload section:</b></u> Click on 'upload your image here' to upload image and get press upload to get the respective analysis<br><br>"));
 
 
 
